@@ -3,7 +3,6 @@ Hi everyone!  Here we have my latest and greatest version of a web app for demon
 
 # Run this project locally
      $ git clone ...link...
-     config.js -> const URL = 'http://localhost:3030'
      $ cd client & npm i & npm start
      $ cd server & npm i & nodemon
     
