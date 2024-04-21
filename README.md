@@ -3,8 +3,8 @@ Hi everyone!  Here we have my latest and greatest version of a web app for demon
 
 # Run this project locally
      $ git clone ...link...
-     $ cd client & npm i & npm start
-     $ cd server & npm i & nodemon
+     $ cd client && npm i && npm start
+     $ cd server && npm i && nodemon
     
 
 # About
