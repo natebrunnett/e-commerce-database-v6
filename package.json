@@ -2,10 +2,10 @@
   "name": "e-commerce-database-v5",
   "version": "1.0.0",
   "description": "",
-  "main": "./server/server.js",
+  "main": "./server/Host.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd ./server && node server.js",
+    "start": "cd ./server && node Host.js",
     "build": "cd ./server && npm i"
   },
   "engines": {

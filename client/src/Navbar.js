@@ -1,35 +1,44 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { MdRestaurantMenu } from "react-icons/md";
+import { useState } from "react";
 
 const Navbar = () => {
-	return (
-  <>
-    <div className="flex flex-row bg-black justify-between items-center">
-    <NavLink to={"/Ecommerce/Menu"} className="text-3xl font-bold flex items-center gap-1 pt-1 pb-1"
-    style={ ({isActive}) => (
-      isActive ? linkStyles.activeLink : linkStyles.defaultLink
-    )}>E commerce<MdRestaurantMenu size={"32px"}/>
-    </NavLink>
 
-    <NavLink to={"/Blog"} className="text-3xl font-bold flex items-center gap-1 pr-2 pt-1 pb-1"
-    style={ ({isActive}) => (
-      isActive ? linkStyles.activeLink : linkStyles.defaultLink
-    )}>Blog
-    </NavLink>
-    </div>
+  const [open, setOpen] = useState(false)
+  let ListStyle = 'text-3xl font-bold ml-2'
+
+	return (
+<>
+
+    {open? <>
+      <div className="top-5 left-5 w-64 h-36 flex pt-0 flex-col items-start outline-dotted outline-2 bg-purple-900">
+    <button onClick={() => setOpen(false)}className="text-3xl absolute right-1">X</button>
+
+    <NavLink to={"/To-do"}  style={ ({isActive}) => (isActive ?  CSS.InactiveLink : CSS.ActiveLink)}
+      className={ListStyle}>To-do</NavLink>
+
+    <NavLink to={"/Ecommerce"} style={ ({isActive}) => (isActive ?  CSS.InactiveLink : CSS.ActiveLink)}
+    className={ListStyle}>Ecommerce</NavLink>
+
+    <NavLink to={"/Blog"}  style={ ({isActive}) => (isActive ?  CSS.InactiveLink : CSS.ActiveLink)}
+      className={ListStyle}>Blog</NavLink> 
+    </div></>
+    : <button 
+      onClick={() => setOpen(true)}
+    className="bg-purple-700 text-white absolute right-1">open</button> }
+
   
-  </>
+</>
 	)
 }
 
 export default Navbar
 
-const linkStyles = {
-  activeLink: {
+const CSS = {
+  ActiveLink: {
     color: "gray",
   },
-  defaultLink: {
+  InactiveLink: {
     textDecoration: "none",
     color: "white",
   },

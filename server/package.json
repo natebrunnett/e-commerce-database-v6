@@ -1,11 +1,11 @@
 {
-  "name": "server",
+  "name": "Host",
   "version": "1.0.0",
   "description": "This repository is the home to my largest project that is fully deployed on the interwebs.  It is a combination of two apps, with an organized database.  The project is being run from a single app via Cyclic.",
-  "main": "server.js",
+  "main": "Host.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "start": "node Host.js"
   },
   "author": "",
   "license": "ISC",
