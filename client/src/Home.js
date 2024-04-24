@@ -5,7 +5,8 @@ import Navbar from "./Navbar.js";
 // import Portfolio from './Portfolio.js'
 import URL from './Config.js'
 import Portfolio from './Portfolio.js'
-import Ecommerce from './Ecommerce.js'
+import Ecommerce from './EcommerceHome.js'
+import TodoHome from './TodoHome.js'
 import Blog from './Blog.js'
 // import Login from './root-components/Login'
 
@@ -17,8 +18,11 @@ import Blog from './Blog.js'
 
 function Home() {
 
-  const [user, setUser] = useState(null);
-  // const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
+  const [user, setUser] = useState('guest');
+  const [token, setToken] = useState(JSON.parse(localStorage.getItem("token-8092")));
+  const [todos, setTodos] = useState([]);
+  const [Products, setProducts] = useState([]);
+
   //stripe
   // const apiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
   // const stripePromise = loadStripe(apiKey);
@@ -38,35 +42,59 @@ function Home() {
   //   })
   // }
 
-// let HandleLogout = () => {
-//   localStorage.removeItem("token");
-//   setUser('guest');
-//   setCart([]);
-//   alert("You have logged out");
-// }
+let HandleLogout = () => {
+  localStorage.removeItem("token-8092");
+  setUser('guest');
+}
 
-// let ProcessToken = (token) => {
-//   let decodedToken = jose.decodeJwt(token);
-//   setUser(decodedToken.username);
-//   (decodedToken.cart.length > 0) ? setCart(decodedToken.cart) : setCart([])
-//   setIsLoggedIn(true);
-//   localStorage.setItem("token", JSON.stringify(token));
-// }
+let ProcessToken = async(token) => {
+  try {
+    if(token){
+      console.log('token detected')
+      let DecodedToken = jose.decodeJwt(token);
+      console.log(DecodedToken)
+      setUser(DecodedToken.username);
+      localStorage.setItem("token-8092", JSON.stringify(token));
+      if(DecodedToken.todos !== undefined){ setTodos(DecodedToken.todos); return DecodedToken.todos }
+      else if(DecodedToken.cart !== undefined){return DecodedToken.cart}
+      else return null;
+    }
+    else{
+      const response = await axios.post(URL + '/users/guest');  
+      localStorage.setItem("token-8092", JSON.stringify(response.data));
+      console.log('guest token saved to Local Storage')
+    }
+  }
+  catch (e){
+    console.log(e)
+  }
+}
+
+useEffect(() => {
+  ProcessToken(token);
+}, [token])
 
   return (
     <Router>
-      <Navbar/>
+      <section className=" overflow-x-hidden">
+        <Navbar setUser={setUser} user={user} HandleLogout={HandleLogout}/>
+      </section>
       <Routes>
         <Route path="/" element={<Portfolio />} />
 
         <Route 
         path={'/Ecommerce'}
-        element={<Ecommerce user={user}/>}
+        element={<Ecommerce Products={Products} user={user} setProducts={setProducts}/>}
         />
-        {/*<Route
+        
+        <Route 
+        path={'/TodoApp'}
+        element={<TodoHome ProcessToken={ProcessToken} user={user} setUser={setUser} setTodos={setTodos} todos={todos}/>}
+        />
+        {/* <Route
         path={'/Login'}
-        element={<Login loginHandle={ProcessToken}/>}
-        />*/}
+        element={<Login />}
+        /> */}
         {/*<Route
             path="sendEmail/:email/:link"
             element={<Enter />}

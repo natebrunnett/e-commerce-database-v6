@@ -1,16 +1,31 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import URL from './../../config'
+import URL from './Config'
 import axios from 'axios'
 import * as jose from 'jose'
 import { FaShoppingCart } from "react-icons/fa";
+import {useState, useEffect} from 'react'
 
-let Menu = ({MenuList, setCart, user, logout}) => {
+let EcommerceHome = ({user, Products, setProducts}) => {
 
+    const [cart, setCart] = useState([]);
     let navigate = useNavigate()
 
+    useEffect(()=> {
+        const GET_PRODUCTS = async() => {
+            try{
+                console.log("GET_PRODUCTS")
+                const response = await axios.get(URL+'/products/getAll')
+                setProducts(response.data)
+            }catch(err){
+                console.log(err)
+            }
+        }
+        Products.length == 0 && GET_PRODUCTS()
+    }, [])
+
 	let renderProducts=()=>(
-        MenuList.map((prod,idx)=>{
+        Products.map((prod,idx)=>{
             let thisPrice = parseFloat(prod.price * .01).toFixed(2);
             return(
                 <div key={idx} className="flex flex-col items-center mb-3">
@@ -32,7 +47,7 @@ let Menu = ({MenuList, setCart, user, logout}) => {
     if(user != null){
     //get menuItem data from mongoDb
     let menuItem = {}
-    menuItem = MenuList[parseInt(number)];
+    menuItem = Products[parseInt(number)];
     //setCart with the newCart data using a token to store it in LocalStorage
     axios.post(URL+'/Guest/addItem', 
         {username:user, product: menuItem})
@@ -62,7 +77,7 @@ let Menu = ({MenuList, setCart, user, logout}) => {
         <div className='flex flex-row gap-2 items-center justify-center mt-2 mb-2'>
             <h1 className='mb-3 mt-3'>Hello, {user}</h1>
             {(user == 'guest@gmail.com')? <button className='bg-amber-700 p-4 rounded-3xl text-white' onClick={() => navigate('/Login')}>Log in</button> : <button  
-            className='bg-amber-700 p-4 rounded-3xl text-white' onClick={()=>logout()}>Logout</button>}
+            className='bg-amber-700 p-4 rounded-3xl text-white'>Logout</button>}
         </div>
         <h1 className='font-bold text-4xl mb-3'>Order now :)</h1>
 	</div>
@@ -72,4 +87,4 @@ let Menu = ({MenuList, setCart, user, logout}) => {
     </>)
 }
 
-export default Menu
+export default EcommerceHome

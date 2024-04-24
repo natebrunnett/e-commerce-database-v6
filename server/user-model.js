@@ -13,4 +13,4 @@ const userSchema = new mongoose.Schema({
   todos: [{type: todoSchema, required: true}]
 });
 
-module.exports = mongoose.model("users-todo-app", userSchema);
+module.exports = mongoose.model("users-public", userSchema);

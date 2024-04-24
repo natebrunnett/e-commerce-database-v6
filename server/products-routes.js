@@ -1,10 +1,9 @@
 const express     = require('express'),
     router        = express.Router(),
-    controller    = require('../controllers/productController.js');
+    controller    = require('./products-controller.js');
 
 //findAllReturn 
-router.get('/', controller.findAllReturn);
-
+router.get('/getAll', controller.findAllReturn);
 
 //findAllReturn 
 router.post('/add', controller.add);

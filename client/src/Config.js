@@ -1,3 +1,3 @@
-const URL = 'http://127.0.0.1:/ecommerce-db-6'
+const URL = 'http://localhost:3030'
 
 export default URL
