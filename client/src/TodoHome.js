@@ -6,6 +6,7 @@ import Write from './Todo-components/Write'
 import Todos from './Todo-components/Todos'
 import URL from './Config.js'
 import DeveloperNotes from './Todo-components/DeveloperNotes';
+import {motion} from 'framer-motion';
 
 function Home({user, setUser, ProcessToken, todos, setTodos}) {
     const defaultColor = "text-lime-400";
@@ -41,12 +42,14 @@ function Home({user, setUser, ProcessToken, todos, setTodos}) {
 
 
     return (
-    <main className='h-screen bg-slate-700 flex flex-col items-center'>
-        <Header />
-        <Write setTodos={setTodos} todos={todos} addTodo={addTodo}/>
-        <Todos todos={todos} deleteTodo={deleteTodo} setTodos={setTodos} updateTodo={updateTodo}/>
-        <DeveloperNotes />
-    </main>
+    <motion.div  initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }}    transition={{ duration: 1.15 }} >
+        <main className='h-screen bg-slate-700 flex flex-col items-center'>
+            <Header />
+            <Write setTodos={setTodos} todos={todos} addTodo={addTodo}/>
+            <Todos todos={todos} deleteTodo={deleteTodo} setTodos={setTodos} updateTodo={updateTodo}/>
+            <DeveloperNotes />
+        </main>
+    </motion.div>
     )
 }
 

@@ -1,10 +1,11 @@
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import React, {useEffect, useState} from "react"; import axios from "axios"; import * as jose from 'jose'
 import Navbar from "./Navbar.js";
+import Footer from "./Footer.js";
 
 // import Portfolio from './Portfolio.js'
 import URL from './Config.js'
-import Portfolio from './Portfolio.js'
+import Portfolio from './PortfolioHome.js'
 import Ecommerce from './EcommerceHome.js'
 import TodoHome from './TodoHome.js'
 import Blog from './Blog.js'
@@ -104,6 +105,9 @@ useEffect(() => {
           element={<Blog user={user} />}
         />
       </Routes>
+      <section className=" overflow-x-hidden">
+        <Footer/>
+      </section>
     </Router>
   );
 }

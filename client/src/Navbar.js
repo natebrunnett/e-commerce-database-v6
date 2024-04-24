@@ -14,6 +14,9 @@ const Navbar = ({user, setUser}) => {
       <div className="top-0 right-0 z-20 w-screen h-28 flex pt-0 flex-col items-start outline-dotted outline-2 bg-purple-950">
     <button onClick={() => setOpen(false)}className="text-3xl absolute right-2 text-white">X</button>
 
+    <NavLink to={"/"}  style={ ({isActive}) => (isActive ?  CSS.InactiveLink : CSS.ActiveLink)}
+      className={ListStyle}>Home</NavLink>
+
     <NavLink to={"/TodoApp"}  style={ ({isActive}) => (isActive ?  CSS.InactiveLink : CSS.ActiveLink)}
       className={ListStyle}>To-do</NavLink>
 
