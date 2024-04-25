@@ -72,7 +72,7 @@ let EcommerceHome = ({user, Products, setProducts}) => {
     return (
     <motion.div  initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }}    transition={{ duration: 1.15 }} >
     
-    <div className='flex flex-row items-center justify-center cursor-pointer mt-3 bg-orange-500 w-24 h-24 pr-1 rounded-full bottom-1 right-1 fixed' onClick={() => navigate('/Ecommerce/Cart')}><FaShoppingCart size={"32px"}/></div>
+    <div className='flex flex-row items-center justify-center cursor-pointer mt-3 bg-orange-500 w-24 h-24 pr-1 rounded-full bottom-1 right-1 fixed opacity-50 hover:opacity-100' onClick={() => navigate('/Cart')}><FaShoppingCart size={"32px"}/></div>
     <div className='flex flex-col items-center'><h1 className='italic text-2xl mt-2 mb-3'>Stripe Implementation</h1></div>
 	{renderProducts()}
 	

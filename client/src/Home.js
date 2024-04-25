@@ -8,8 +8,8 @@ import URL from './Config.js'
 import Portfolio from './PortfolioHome.js'
 import Ecommerce from './EcommerceHome.js'
 import TodoHome from './TodoHome.js'
-import Blog from './Blog.js'
-// import Login from './root-components/Login'
+import Blog from './SpotifyHome.js'
+import Login from './Login-db.js'
 
 //stripe
 //import {loadStripe} from '@stripe/stripe-js'; import {Elements} from '@stripe/react-stripe-js';
@@ -23,6 +23,7 @@ function Home() {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem("token-8092")));
   const [todos, setTodos] = useState([]);
   const [Products, setProducts] = useState([]);
+  const [Comments, setComments] = useState([]);
 
   //stripe
   // const apiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
@@ -92,17 +93,17 @@ useEffect(() => {
         path={'/TodoApp'}
         element={<TodoHome ProcessToken={ProcessToken} user={user} setUser={setUser} setTodos={setTodos} todos={todos}/>}
         />
-        {/* <Route
+        <Route
         path={'/Login'}
-        element={<Login />}
-        /> */}
+        element={<Login ProcessToken={ProcessToken}/>}
+        />
         {/*<Route
             path="sendEmail/:email/:link"
             element={<Enter />}
         />*/}
         <Route 
           path='/Blog'
-          element={<Blog user={user} />}
+          element={<Blog user={user} Comments={Comments} setComments={setComments}/>}
         />
       </Routes>
       <section className=" overflow-x-hidden">

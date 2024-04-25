@@ -42,6 +42,7 @@ class User {
                 email: req.body.email,
                 todos: []
             })
+            console.log("User was successfully created");
             const token = jwt.sign({ username: req.body.username, todos: []}, process.env.JWT_SECRET, {
                 expiresIn: "365d",
             });

@@ -1,12 +1,13 @@
 import React from 'react'
-import Search from '../components/Search'
+import Search from './Search'
 import {useState ,useEffect} from 'react';
-import Post from '../components/Post';
-import FeedContainer from '../components/FeedContainer'
-import Header from '../components/Header';
+import Post from './Blog-components/components/Post';
+import FeedContainer from './Blog-components/components/FeedContainer'
+import Header from './Blog-components/components/Header';
 import axios from "axios";
+import {motion} from 'framer-motion'
 
-function MusicPage({user, feed, setFeed}) {
+function SpotifyHome({user, Comments, setComments}) {
 
   const [spotifyToken, setSpotifyToken] = useState(null);
   const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -50,15 +51,18 @@ useEffect(()=> {
   })
 
   return (
+    <motion.div  initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }}    transition={{ duration: 1.15 }} >
+
+
   <main className="bg-[rgb(1,78,1)] text-white h-screen overflow-x-hidden z-0">
   <div class="flex flex-col items-center bg-[rgb(1,78,1)]">
     <Header />
     <Search spotifyToken={spotifyToken} setPayload={setPayload} payload={payload}/>
-    <Post payload={payload} user={user} setPayload={setPayload} setFeed={setFeed}/>
-    <FeedContainer feed={feed} />
+    <FeedContainer feed={Comments} />
   </div>
   </main>
+  </motion.div>
   )
 }
 
-export default MusicPage
+export default SpotifyHome

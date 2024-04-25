@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import URL from './../../config'
+import URL from './../../Config'
 
 
 /* post item from mongodb
