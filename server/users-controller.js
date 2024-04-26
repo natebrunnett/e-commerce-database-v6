@@ -27,6 +27,14 @@ class User {
         }
     }
 
+    async verifyToken(req,res){
+        try {
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     async addItemToCart(req, res){
         try {
             // console.log(req.body)  //user && product  

@@ -54,7 +54,9 @@ let ProcessToken = async(token) => {
   try {
     if(token){
       console.log('token detected')
-      let DecodedToken = jose.decodeJwt(token);
+      axios.defaults.headers.common["Authorization"] = token;
+      let VerifiedToken = await axios.post(URL + '/users/verifyToken', {})
+      let DecodedToken = jose.decodeJwt(VerifiedToken);
       setUser(DecodedToken.username);
       console.log(DecodedToken)
       localStorage.setItem("token-8092", JSON.stringify(token));
