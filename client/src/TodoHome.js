@@ -15,9 +15,7 @@ function Home({user, setUser, ProcessToken, todos, setTodos}) {
         try {
             todo.color = defaultColor;
             const response = await axios.post(URL + '/todos/add', {todo, currentTodos: todos, user});
-            const DecodedTodos = await ProcessToken(response.data);
-            console.log(DecodedTodos);
-            DecodedTodos && setTodos(DecodedTodos)
+            await ProcessToken(response.data);
         } catch (error) { console.log(error); }
     }
 
@@ -25,8 +23,7 @@ function Home({user, setUser, ProcessToken, todos, setTodos}) {
         try {
             todo.index = idx; //we only need to add an idx if user is guest
             const response = await axios.post(URL + '/todos/delete', {todo, currentTodos: todos, user});
-            const DecodedTodos = await ProcessToken(response.data);
-            DecodedTodos && setTodos(DecodedTodos)
+            await ProcessToken(response.data);
         } catch (error) { console.log(error); }
     }
 
@@ -34,8 +31,7 @@ function Home({user, setUser, ProcessToken, todos, setTodos}) {
         try {
             form.index = idx;
             const response = await axios.post(URL + '/todos/update', {form, currentTodos: todos, user});
-            const DecodedTodos = await ProcessToken(response.data);
-            DecodedTodos && setTodos(DecodedTodos)
+            await ProcessToken(response.data);
           } catch (error) { console.log(error); }
     }
 

@@ -2,7 +2,6 @@
 import React from "react";
 import axios from "axios";
 import {useState} from "react";
-import spotifyImage from './Blog-components/media/spotify.jpg';
 import Result from "./Blog-components/components/Result";
 
 let Search=({spotifyToken, payload, setPayload})=>{

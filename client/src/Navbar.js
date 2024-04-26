@@ -32,8 +32,8 @@ const Navbar = ({user, HandleLogout}) => {
           className={ListStyle}>Spotify API Integration</NavLink> 
     
 
-    {user === 'guest' ? <h1 className=" text-white mr-2 mt-3 absolute right-0 top-28">{user}<span><button onClick={() => navigate('/Login')} className="bg-purple-800 text-slate-300 p-1 text-sm rounded-2xl ml-2">Sign in</button></span></h1>
-    : <h1 className=" text-white mr-2 mt-3 absolute right-0 top-28">{user}<span><button onClick={() => HandleLogout()} className="bg-purple-800 text-slate-300 p-1 text-sm rounded-2xl ml-2">Sign out</button></span></h1> }
+    {user === 'guest' ? <h1 className=" text-white mr-2 mt-3 absolute right-3 top-0">{user}<span><button onClick={() => navigate('/Login')} className="bg-purple-800 text-slate-300 p-1 text-sm rounded-2xl ml-2">Sign in</button></span></h1>
+    : <h1 className=" text-white mr-2 mt-3 absolute right-3 top-0">{user}<span><button onClick={() => HandleLogout()} className="bg-purple-800 text-slate-300 p-1 text-sm rounded-2xl ml-2">Sign out</button></span></h1> }
     
     <div onClick={() => setOpen(false)} className="text-3xl text-center w-screen text-white cursor-pointer">⬆️</div>
     </div>

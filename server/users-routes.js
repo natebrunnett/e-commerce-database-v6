@@ -4,8 +4,10 @@ const express     = require('express'),
 
 router.get('/', controller.findAllReturn);
 router.post('/guest', controller.createGuestToken);
-router.post('/add', controller.addUser);
+router.post('/add', controller.addUser); //this function will track views
 router.post('/login', controller.login)
-// router.post('/delete', controller.deleteUser);
+router.post('/addItemToCart', controller.addItemToCart);
+// router.post('/debug', controller.debug) 
+//router.post('/debugAdd', controller.ADMIN_ROUTE_CREATE_VIEWS_STAT) 
 
 module.exports = router;

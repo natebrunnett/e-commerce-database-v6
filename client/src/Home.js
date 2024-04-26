@@ -10,6 +10,7 @@ import Ecommerce from './EcommerceHome.js'
 import TodoHome from './TodoHome.js'
 import Blog from './SpotifyHome.js'
 import Login from './Login-db.js'
+import Cart from './Cart.js'
 
 //stripe
 //import {loadStripe} from '@stripe/stripe-js'; import {Elements} from '@stripe/react-stripe-js';
@@ -23,7 +24,7 @@ function Home() {
   const [token, setToken] = useState(JSON.parse(localStorage.getItem("token-8092")));
   const [todos, setTodos] = useState([]);
   const [Products, setProducts] = useState([]);
-  const [Comments, setComments] = useState([]);
+  const [cart, setCart] = useState([]);
 
   //stripe
   // const apiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
@@ -54,11 +55,11 @@ let ProcessToken = async(token) => {
     if(token){
       console.log('token detected')
       let DecodedToken = jose.decodeJwt(token);
-      console.log(DecodedToken)
       setUser(DecodedToken.username);
+      console.log(DecodedToken)
       localStorage.setItem("token-8092", JSON.stringify(token));
-      if(DecodedToken.todos !== undefined){ setTodos(DecodedToken.todos); return DecodedToken.todos }
-      else if(DecodedToken.cart !== undefined){return DecodedToken.cart}
+      if(DecodedToken.todos !== undefined) setTodos(DecodedToken.todos)
+      else if(DecodedToken.cart !== undefined) setCart(DecodedToken.cart)
       else return null;
     }
     else{
@@ -86,7 +87,7 @@ useEffect(() => {
 
         <Route 
         path={'/Ecommerce'}
-        element={<Ecommerce Products={Products} user={user} setProducts={setProducts}/>}
+        element={<Ecommerce Products={Products} setProducts={setProducts} user={user} ProcessToken={ProcessToken}/>}
         />
         
         <Route 
@@ -103,7 +104,11 @@ useEffect(() => {
         />*/}
         <Route 
           path='/Blog'
-          element={<Blog user={user} Comments={Comments} setComments={setComments}/>}
+          element={<Blog user={user}/>}
+        />
+        <Route 
+          path='/Cart'
+          element={<Cart cart={cart} setCart={setCart} ProcessToken={ProcessToken}/>}
         />
       </Routes>
       <section className=" overflow-x-hidden">

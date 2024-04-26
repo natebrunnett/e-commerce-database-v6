@@ -8,9 +8,8 @@ import {useState, useEffect} from 'react'
 import {motion} from 'framer-motion';
 
 
-let EcommerceHome = ({user, Products, setProducts}) => {
+let EcommerceHome = ({user, Products, setProducts, ProcessToken}) => {
 
-    const [cart, setCart] = useState([]);
     let navigate = useNavigate()
 
     useEffect(()=> {
@@ -44,23 +43,21 @@ let EcommerceHome = ({user, Products, setProducts}) => {
         })
     )
 
-    let AddToCart = (number) =>
+    let AddToCart = async(idx) =>
     {
-    if(user != null){
+    if(user != 'guest' || user != null){
     //get menuItem data from mongoDb
-    let menuItem = {}
-    menuItem = Products[parseInt(number)];
+    let SelectedProduct = {}
+    SelectedProduct = Products[parseInt(idx)];
     //setCart with the newCart data using a token to store it in LocalStorage
-    axios.post(URL+'/Guest/addItem', 
-        {username:user, product: menuItem})
-    .then((res) => {
-        let decodedToken = jose.decodeJwt(res.data.token);
-        (decodedToken.cart.length > 0) && setCart(decodedToken.cart)
-        localStorage.setItem("token", JSON.stringify(res.data.token));
-    })
-    .catch((err)=>{
-        console.log(err)
-    })
+        try {
+            let response = await axios.post(URL+'/users/addItemToCart', {SelectedProduct, user})
+            console.log(response)
+            console.log("response recieved")
+            ProcessToken(response.data.token)
+        } catch (error) {
+            console.log(error)
+        }
     }
     else{
     alert("Please login to continue")
@@ -74,7 +71,7 @@ let EcommerceHome = ({user, Products, setProducts}) => {
     
     <div className='flex flex-row items-center justify-center cursor-pointer mt-3 bg-orange-500 w-24 h-24 pr-1 rounded-full bottom-1 right-1 fixed opacity-50 hover:opacity-100' onClick={() => navigate('/Cart')}><FaShoppingCart size={"32px"}/></div>
     <div className='flex flex-col items-center'><h1 className='italic text-2xl mt-2 mb-3'>Stripe Implementation</h1></div>
-	{renderProducts()}
+    {renderProducts()}
 	
     </motion.div>)
 }

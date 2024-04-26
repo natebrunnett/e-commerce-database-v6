@@ -6,8 +6,9 @@ import FeedContainer from './Blog-components/components/FeedContainer'
 import Header from './Blog-components/components/Header';
 import axios from "axios";
 import {motion} from 'framer-motion'
+import Admin from './Admin'
 
-function SpotifyHome({user, Comments, setComments}) {
+function SpotifyHome({user}) {
 
   const [spotifyToken, setSpotifyToken] = useState(null);
   const clientId = process.env.REACT_APP_CLIENT_ID;
@@ -58,7 +59,6 @@ useEffect(()=> {
   <div class="flex flex-col items-center bg-[rgb(1,78,1)]">
     <Header />
     <Search spotifyToken={spotifyToken} setPayload={setPayload} payload={payload}/>
-    <FeedContainer feed={Comments} />
   </div>
   </main>
   </motion.div>

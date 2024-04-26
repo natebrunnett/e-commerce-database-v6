@@ -1,5 +1,5 @@
 import React from 'react'
-import Feed from '../components/Feed';
+import Feed from './Feed';
 
 function FeedContainer({feed}) {
   return (

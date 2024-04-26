@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useStripe } from "@stripe/react-stripe-js";
 import stripeImg from '../media/stripeImg.png'
 
-let Cart = ({myCart, setCart, user}) => {
+let Cart = ({myCart, setCart, user, ProcessToken}) => {
 
 
 //stripe
