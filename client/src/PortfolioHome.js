@@ -8,7 +8,7 @@ function PortfolioHome() {
   return (
   
   <motion.div  initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }}    transition={{ duration: 1.15 }} >
-    <main className='text-white bg-gray-900'>
+    <main className='text-white bg-[rgb(36,36,36)]'>
       <Header />
       <Skills />
       <CyclicApps />

@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const argon2 = require("argon2");
 const { response } = require('express');
 const Stats = require('./stats-model.js');
+const jose = require('jose');
 
 class User {
 
@@ -29,7 +30,14 @@ class User {
 
     async verifyToken(req,res){
         try {
-            
+            const token = req.headers.authorization;
+            // let DecodedToken = jose.decodeJwt(token);
+            // console.log(DecodedToken.username);
+            jwt.verify(token, process.env.JWT_SECRET, (err, succ) => {
+                err
+                ? res.json({ ok: false, message: "Token is corrupted" })
+                : res.json({ ok: true, succ });
+        });
         } catch (error) {
             console.log(error)
         }
@@ -46,6 +54,18 @@ class User {
             await Users.updateOne({username: req.body.user}, {cart: tempCart})
             res.send({ok: true, token})
 
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async removeItemFromCart(req, res){
+        try {
+            //do stuff to remove the cart, if it's a guest, don't affect the MongoDB
+            console.log(req.body)
+            //get the index from the body, and use it to splice the tempArray of cart from the token
+            //if user is not a guest update the Users with the tempArray
+            //sign a new token and send back the data in a token
         } catch (error) {
             console.log(error)
         }

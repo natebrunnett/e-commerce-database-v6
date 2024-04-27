@@ -8,12 +8,14 @@ import URL from './Config.js'
 import Portfolio from './PortfolioHome.js'
 import Ecommerce from './EcommerceHome.js'
 import TodoHome from './TodoHome.js'
-import Blog from './SpotifyHome.js'
+import Spotify from './SpotifyHome.js'
 import Login from './Login-db.js'
 import Cart from './Cart.js'
-
+import Contact from './Contact.js'
 //stripe
-//import {loadStripe} from '@stripe/stripe-js'; import {Elements} from '@stripe/react-stripe-js';
+import {loadStripe} from '@stripe/stripe-js'; import {Elements} from '@stripe/react-stripe-js';
+import PaymentSuccess from "./Stripe/Stripe_payment_success";
+import PaymentError from "./Stripe/Stripe_error";
 
 // //magicLink || Account Recovery
 // import Enter from './root-components/Enter.js'
@@ -26,9 +28,9 @@ function Home() {
   const [Products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
 
-  //stripe
-  // const apiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
-  // const stripePromise = loadStripe(apiKey);
+
+  const apiKey = process.env.REACT_APP_STRIPE_PUBLIC_KEY;
+  const stripePromise = loadStripe(apiKey);
 
   // const sendEmail = async (paramEmail, magicLink) => {
   //   axios.post(URL+'/Guest/sendEmail', {email: paramEmail, magicLink})
@@ -56,13 +58,14 @@ let ProcessToken = async(token) => {
       console.log('token detected')
       axios.defaults.headers.common["Authorization"] = token;
       let VerifiedToken = await axios.post(URL + '/users/verifyToken', {})
-      let DecodedToken = jose.decodeJwt(VerifiedToken);
+      if(VerifiedToken.data.ok === false) {HandleLogout(); console.log("token removed"); return null;}
+      let DecodedToken = jose.decodeJwt(token);
       setUser(DecodedToken.username);
       console.log(DecodedToken)
       localStorage.setItem("token-8092", JSON.stringify(token));
-      if(DecodedToken.todos !== undefined) setTodos(DecodedToken.todos)
-      else if(DecodedToken.cart !== undefined) setCart(DecodedToken.cart)
-      else return null;
+    
+      if(DecodedToken.todos !== undefined) setTodos(DecodedToken.todos);
+      if(DecodedToken.cart !== undefined) setCart(DecodedToken.cart);
     }
     else{
       const response = await axios.post(URL + '/users/guest');  
@@ -81,9 +84,7 @@ useEffect(() => {
 
   return (
     <Router>
-      <section className=" overflow-x-hidden">
-        <Navbar setUser={setUser} user={user} HandleLogout={HandleLogout}/>
-      </section>
+      <section className=" overflow-x-hidden"><Navbar setUser={setUser} user={user} HandleLogout={HandleLogout}/></section>
       <Routes>
         <Route path="/" element={<Portfolio />} />
 
@@ -105,17 +106,31 @@ useEffect(() => {
             element={<Enter />}
         />*/}
         <Route 
-          path='/Blog'
-          element={<Blog user={user}/>}
+          path='/Spotify'
+          element={<Spotify user={user}/>}
         />
         <Route 
           path='/Cart'
-          element={<Cart cart={cart} setCart={setCart} ProcessToken={ProcessToken}/>}
+          element={        
+        <Elements stripe={stripePromise}>
+          <Cart cart={cart} setCart={setCart} user={user} ProcessToken={ProcessToken} token={token}/>
+        </Elements>}/>
+        <Route
+          path="/payment/success"
+          element={<PaymentSuccess
+          setCart={setCart} 
+          />}
+        />
+        <Route
+          path="/payment/error"
+          element={<PaymentError />}
+        />
+        <Route
+          path='/Contact'
+          element={<Contact/>}
         />
       </Routes>
-      <section className=" overflow-x-hidden">
-        <Footer/>
-      </section>
+      <section className=" overflow-x-hidden"><Footer/></section>
     </Router>
   );
 }

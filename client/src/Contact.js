@@ -2,6 +2,7 @@ import React from 'react'
 import {useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import URL from './Config'
 
 function Contact() {
 
@@ -23,7 +24,7 @@ function Contact() {
     const HandleSend = async(e) => {
         e.preventDefault()
         console.log(form)
-        const response = await axios.post(process.env.REACT_APP_SERVER_URL + '/mail/send', {subject: form.subject, email: form.email, message: form.message});
+        const response = await axios.post(URL + '/mail/send', {subject: form.subject, email: form.email, message: form.message});
         if(response.data.ok === true){
             setValues({
                 subject: '',
@@ -42,22 +43,22 @@ function Contact() {
 
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className='flex flex-col items-center bg-[rgb(36,36,36)] h-screen pt-10'>
         <form
             onChange={HandleChange}
             onSubmit={HandleSend}
         >
             <div>
                 <h1 className='text-lg font-bold text-blue-300'>Subject</h1>
-                <input className="text-black rounded-md h-8 bg" name="subject"/>
+                <input className="text-black rounded-md h-8 bg pl-2" name="subject"/>
             </div>
             <div>
                 <h1 className='text-lg font-bold text-blue-300'>Your email</h1>
-                <input className="text-black rounded-md h-8 bg" name="email"/>
+                <input className="text-black rounded-md h-8 bg pl-2" name="email"/>
             </div>
             <div>
                 <h1 className='text-lg font-bold text-blue-300'>Message</h1>
-                <textarea className="text-black rounded-md h-32 w-80 bg" name="message"/>
+                <textarea className="text-black rounded-md h-32 w-80 bg pl-2" name="message"/>
             </div>
             <div className='flex justify-center pt-3'>
                 <button className=" bg-blue-400 w-32 h-12 rounded-md">Send</button>

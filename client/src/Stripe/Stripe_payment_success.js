@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 //config
-import URL from './../../config'
+import URL from '../Config'
 import { useNavigate } from "react-router-dom";
 
 const PaymentSuccess = ({setCart}) => {
@@ -32,7 +32,7 @@ const PaymentSuccess = ({setCart}) => {
     getSessionData();
     setTimeout(()=>{
       setCart([])
-      navigate('/')
+      navigate('/Ecommerce')
     }, 2000)
   }, []);
 
@@ -49,7 +49,7 @@ const PaymentSuccess = ({setCart}) => {
           />
         </div>
         <div style={{ color: "#35BFDE" }} className="message_box_right">
-          Payment Successfull
+          Payment Successful - for testing purposes...
         </div>
       </div>
     </div>

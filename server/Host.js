@@ -19,13 +19,15 @@ async function connecting(){
 }}connecting()
     
     /*alternative routes 
-    app.use('/payment', require('./E-commerce/routes/payment.route.js')); //Stripe
+    
     app.use('/feed', require('./Blog/routes/feed-routes.js')) */
 
 
     app.use('/users', require('./users-routes.js'))
     app.use('/products/', require('./products-routes.js'));
     app.use('/todos', require('./todos-routes.js'))
+    app.use('/payment', require('./Stripe/payment-routes.js')); //Stripe
+    app.use('/mail', require('./mail-routes.js')) //nodemailer
 
 
 

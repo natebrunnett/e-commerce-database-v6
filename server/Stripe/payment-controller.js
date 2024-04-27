@@ -1,8 +1,8 @@
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const jwt = require("jsonwebtoken");
-const Customer = require('../models/Customer.js');
+const User = require('../user-model.js');
 const dotenv = require('dotenv');
 dotenv.config();
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // 3. To create a payment session in Stripe
 const create_checkout_session = async (req, res) => {
@@ -49,11 +49,14 @@ const create_checkout_session = async (req, res) => {
     });
     // 8. If session created  successful we send back ok and session id to the client
     // developer - guest clear cart send back token
-    const user = await Customer.findOne({username: name});
-	  if(!user){res.send({ok:false, message:`cannot find user ${name}`});} 	       
-		await Customer.updateOne({username: name},{ cart: [] })
+    let user;
+    if(name !== 'guest'){
+      user = await User.findOne({username: name});
+      if(!user){res.send({ok:false, message:`cannot find user ${name}`});} 	       
+      await User.updateOne({username: name},{ cart: [] })
+    }
 			//use a token to keep Mongodb and localStorage consistent
-			const token = jwt.sign({ username: name, cart: [] }, process.env.JWT_SECRET, {
+			const token = jwt.sign({ username: name, cart: [], todos: user.todos }, process.env.JWT_SECRET, {
 				expiresIn: "1h",});
 		return res.json({ok:true, message:'success', token, sessionId: session.id })
     

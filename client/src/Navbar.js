@@ -14,7 +14,7 @@ const Navbar = ({user, HandleLogout}) => {
   <>
 
     {open? 
-      <div className="relative top-0 right-0 z-20 w-screen h-auto overflow-hidden flex pt-0 flex-col items-start outline-dotted outline-2 bg-purple-950">
+      <div className="relative top-0 right-0 z-20 w-screen h-auto overflow-hidden flex pt-0 flex-col items-start outline-dotted outline-2 bg-black">
 
       {/* Portofolio needs contact me to work nodemailer */}
     <NavLink to={"/"}  style={ ({isActive}) => (isActive ?  CSS.InactiveLink : CSS.ActiveLink)}
@@ -28,20 +28,20 @@ const Navbar = ({user, HandleLogout}) => {
     className={ListStyle}>Ecommerce</NavLink>
 
       {/* Spotify API integration needs to be reimagined */}
-    <NavLink to={"/Blog"}  style={ ({isActive}) => (isActive ?  CSS.InactiveLink : CSS.ActiveLink)}
+    <NavLink to={"/Spotify"}  style={ ({isActive}) => (isActive ?  CSS.InactiveLink : CSS.ActiveLink)}
           className={ListStyle}>Spotify API Integration</NavLink> 
     
 
     {user === 'guest' ? <h1 className=" text-white mr-2 mt-3 absolute right-3 top-0">{user}<span><button onClick={() => navigate('/Login')} className="bg-purple-800 text-slate-300 p-1 text-sm rounded-2xl ml-2">Sign in</button></span></h1>
-    : <h1 className=" text-white mr-2 mt-3 absolute right-3 top-0">{user}<span><button onClick={() => HandleLogout()} className="bg-purple-800 text-slate-300 p-1 text-sm rounded-2xl ml-2">Sign out</button></span></h1> }
+    : <h1 className=" text-white mr-2 mt-3 absolute right-3 top-0">{user}<span><button onClick={() => HandleLogout()} className="bg-white text-black p-1 text-sm rounded-2xl ml-2">Sign out</button></span></h1> }
     
-    <div onClick={() => setOpen(false)} className="text-3xl text-center w-screen text-white cursor-pointer">⬆️</div>
+    <div onClick={() => setOpen(false)} className="text-3xl bg-black overflow-hidden pt-2 pb-2 w-screen text-white text-center cursor-pointer">⬆️</div>
     </div>
     
     
     : <div 
       onClick={() => setOpen(true)}
-    className="bg-purple-900 w-screen text-white text-center cursor-pointer">⬇️</div> }
+    className="text-3xl bg-black overflow-hidden pt-2 pb-2 w-screen text-white text-center cursor-pointer">⬇️</div> }
 
   
 </>
