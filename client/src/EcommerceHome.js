@@ -29,14 +29,13 @@ let EcommerceHome = ({user, Products, setProducts, ProcessToken}) => {
         Products.map((prod,idx)=>{
             let thisPrice = parseFloat(prod.price * .01).toFixed(2);
             return(
-                <div key={idx} className="flex flex-col items-center mb-3">
-                    <img className="w-96 rounded-3xl" src={prod.image[0]} />
-                    <button className=' bg-amber-700 text-white p-3 absolute mt-80 rounded-3xl' 
-                    onClick={() => AddToCart(idx)}>Add to cart</button>	
-                    <div className="text-2xl" ><b>{prod.name}</b></div>
+                <div key={idx} className="flex flex-row items-center mb-3">
+                    <img className="w-24 rounded-3xl" src={prod.image[0]} />
+                    <button className=' bg-slate-300 text-white p-3 rounded-3xl' 
+                    onClick={() => AddToCart(idx)}>❤️</button>	
+                    <div className="text-md w-full" ><b>{prod.name}</b></div>
                     <p style={{ fontSize: '14px'}}><b>{thisPrice}€</b></p>
                     <p className="w-96 text-center" >{prod.description}</p>
-                    <p className='italic'>Quantity: {prod.quantity}</p>
 
                 </div>
             )
